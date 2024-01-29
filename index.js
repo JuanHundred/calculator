@@ -40,7 +40,7 @@ calculator.addEventListener("click", (event) => {
     // if the element being clicked are one of the numbers, display it
     if (event.target.classList.contains("number")){
         currentNumber = currentNumber.concat("", event.target.textContent);
-        displayScreen.textContent = currNumber;
+        displayScreen.textContent = currentNumber;
     }
     // if the element being clicked is an operation, perform the calculation if a number has been clicked before
     // if a number hasn't been clicked before then that is the current result until a calculation is done to get the new result
@@ -48,7 +48,7 @@ calculator.addEventListener("click", (event) => {
         if (result.length === 0){
             result.push(Number(currentNumber));
             lastOperation = event.target.classList[0]
-            currNumber = "";
+            currentNumber = "";
         } else {
             const operationName = event.target.classList[0];
             const calculationResult = operations[lastOperation](result[0], currentNumber);
