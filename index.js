@@ -32,13 +32,25 @@ const calculator = document.querySelector("#calculator");
 // get display
 const displayScreen = document.querySelector(".display");
 
+const clearButton = document.querySelector(".clear");
+
 // save the last operation clicked on to display the result of the calculation when the new operation is clicked
 let lastOperation = "";
+
+function clear() {
+    currentNumber = "";
+    lastOperation = "";
+    result.pop();
+    displayScreen.textContent = 0;
+}
 
 // utilize event bubbling to reduce redundancy 
 calculator.addEventListener("click", (event) => {
     // if the element being clicked are one of the numbers, display it
     if (event.target.classList.contains("number")){
+        if(clearButton.textContent === "AC"){
+            clearButton.textContent = "C";
+        }
         currentNumber = currentNumber.concat("", event.target.textContent);
         displayScreen.textContent = currentNumber;
     }
@@ -47,16 +59,31 @@ calculator.addEventListener("click", (event) => {
     if (event.target.classList.contains("operation")){
         if (result.length === 0){
             result.push(Number(currentNumber));
-            lastOperation = event.target.classList[0]
+            lastOperation = event.target.classList[0];
             currentNumber = "";
         } else {
             const operationName = event.target.classList[0];
             const calculationResult = operations[lastOperation](result[0], currentNumber);
-            result.pop()
+            result.pop();
             result.push(calculationResult);
             displayScreen.textContent = isNaN(result[0]) ? "ERROR" : result[0];
             lastOperation = operationName;
             currentNumber = "";
         }
     }
+    if (event.target.classList.contains("clear")){ 
+        if (event.target.textContent === "C"){
+            if (lastOperation === "equal" || lastOperation.length == 0){
+                clear();
+                clearButton.textContent = "AC";
+            }else if(lastOperation.length != 0){
+                currentNumber = "";
+                displayScreen.textContent = 0;
+                clearButton.textContent = "AC";
+            }
+        }else if (event.target.textContent === "AC"){
+            clear();
+        }
+    }
+
 });
