@@ -19,7 +19,7 @@ const operations= {
         return Number(a) - Number(b);
     },
     addition: function(a, b){
-        return Number(a) + Number(b);
+        return parseFloat((Number(a) + Number(b)).toFixed(10));
     },
     equal: function(a, b){
         return result[0];
@@ -42,6 +42,17 @@ function clear() {
     lastOperation = "";
     result.pop();
     displayScreen.textContent = 0;
+}
+
+function negativePositive(event){
+    let number = currentNumber;
+    if(number[0] !== "-"){
+        currentNumber = "";
+        currentNumber = currentNumber.concat("-", number);
+    }else{
+        currentNumber = number.slice(1);
+    }
+    displayScreen.textContent = currentNumber;
 }
 
 // utilize event bubbling to reduce redundancy 
@@ -71,6 +82,8 @@ calculator.addEventListener("click", (event) => {
             currentNumber = "";
         }
     }
+
+    // when user hits clear button
     if (event.target.classList.contains("clear")){ 
         if (event.target.textContent === "C"){
             if (lastOperation === "equal" || lastOperation.length == 0){
@@ -85,5 +98,28 @@ calculator.addEventListener("click", (event) => {
             clear();
         }
     }
+
+    // when user hits percentage
+    if(event.target.classList.contains("percentage")){
+        let percentageResult = parseFloat(currentNumber) / 100;
+        currentNumber = parseFloat(percentageResult.toFixed(10));
+        displayScreen.textContent = currentNumber;
+    };
+
+    if(event.target.classList.contains("negative")){
+        negativePositive(event);
+    };
+
+    if(event.target.classList.contains("decimal")){
+        if (!currentNumber.includes(".")){
+            if (currentNumber === ""){
+                currentNumber = currentNumber.concat("0", ".");
+            }else{
+                currentNumber = currentNumber.concat("", ".");
+            }
+            displayScreen.textContent = currentNumber;
+        }
+    };
+
 
 });
