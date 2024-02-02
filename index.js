@@ -102,7 +102,7 @@ calculator.addEventListener("click", (event) => {
     // when user hits percentage
     if(event.target.classList.contains("percentage")){
         let percentageResult = parseFloat(currentNumber) / 100;
-        currentNumber = parseFloat(percentageResult.toFixed(10));
+        currentNumber = parseFloat(percentageResult.toFixed(10)); 
         displayScreen.textContent = currentNumber;
     };
 
