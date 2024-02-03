@@ -44,15 +44,24 @@ function clear() {
     displayScreen.textContent = 0;
 }
 
-function negativePositive(event){
-    let number = currentNumber;
-    if(number[0] !== "-"){
-        currentNumber = "";
-        currentNumber = currentNumber.concat("-", number);
+// converts the current number displayed on screen to negative or positive
+function negativePositive(){
+    // if the current number is currently positive
+    if(currentNumber[0] !== "-"){
+        currentNumber = "-".concat("", currentNumber);
+    // else if the number is negative
     }else{
-        currentNumber = number.slice(1);
+        currentNumber = currentNumber.slice(1);
     }
-    displayScreen.textContent = currentNumber;
+
+    // displays 0 or the currentNumber if the currentNumber is not empty
+    if (currentNumber === ""){
+        displayScreen.textContent = 0;
+    }else if (currentNumber === "-"){
+        displayScreen.textContent = "-0";
+    }else{
+        displayScreen.textContent = currentNumber;
+    }
 }
 
 // utilize event bubbling to reduce redundancy 
@@ -62,8 +71,14 @@ calculator.addEventListener("click", (event) => {
         if(clearButton.textContent === "AC"){
             clearButton.textContent = "C";
         }
-        currentNumber = currentNumber.concat("", event.target.textContent);
-        displayScreen.textContent = currentNumber;
+        if (currentNumber.length < 10){
+            if(currentNumber === "" && event.target.textContent === "0"){
+                currentNumber = "";
+            }else{
+                currentNumber = currentNumber.concat("", event.target.textContent);
+                displayScreen.textContent = currentNumber;
+            }
+        }
     }
     // if the element being clicked is an operation, perform the calculation if a number has been clicked before
     // if a number hasn't been clicked before then that is the current result until a calculation is done to get the new result
@@ -77,7 +92,15 @@ calculator.addEventListener("click", (event) => {
             const calculationResult = operations[lastOperation](result[0], currentNumber);
             result.pop();
             result.push(calculationResult);
-            displayScreen.textContent = isNaN(result[0]) ? "ERROR" : result[0];
+            if (isNaN(result[0])){
+                displayScreen.textContent = "ERROR";
+            }else{
+                if(result[0].toString().length > 9){
+                    displayScreen.textContent = result[0].toExponential();
+                }else{
+                    displayScreen.textContent = result[0]
+                }
+            }
             lastOperation = operationName;
             currentNumber = "";
         }
@@ -101,20 +124,27 @@ calculator.addEventListener("click", (event) => {
 
     // when user hits percentage
     if(event.target.classList.contains("percentage")){
-        let percentageResult = parseFloat(currentNumber) / 100;
-        currentNumber = parseFloat(percentageResult.toFixed(10)); 
-        displayScreen.textContent = currentNumber;
+        if (currentNumber === "" || currentNumber === "-"){
+            displayScreen.textContent = 0;
+            currentNumber = "";
+        }else{
+            let percentageResult = parseFloat(currentNumber) / 100;
+            currentNumber = parseFloat(percentageResult.toFixed(10)); 
+            displayScreen.textContent = currentNumber;
+        }
     };
 
+    // calls negativePositive() when the negative button is clicked
     if(event.target.classList.contains("negative")){
-        negativePositive(event);
+        negativePositive();
     };
 
+    // will add a decimal when the decimal button is clicked
     if(event.target.classList.contains("decimal")){
         if (!currentNumber.includes(".")){
-            if (currentNumber === ""){
+            if (currentNumber === "" || currentNumber === "-"){
                 currentNumber = currentNumber.concat("0", ".");
-            }else{
+            }else {
                 currentNumber = currentNumber.concat("", ".");
             }
             displayScreen.textContent = currentNumber;
