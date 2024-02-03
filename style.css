@@ -6,7 +6,65 @@
     box-sizing: border-box;
 }
 
-html,
+/* html,
 body {
     height: 100%;
+} */
+
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 100px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#calculator{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.display{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 20px;
+    border: 2px red solid;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: clamp(15px, 2vw, 20px) clamp(0px, 3vw, 0px);
+    gap: 5px;
+    width: clamp(290px, 50vw, 300px);
+}
+
+.calc-button{
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border: none;
+}
+
+.operations{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.calc-button{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.decimal{
+    font-size: 25px;
+}
+
+.zero{
+    width: 126px;
+    border-radius: 30px;
 }
