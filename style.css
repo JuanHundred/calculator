@@ -11,26 +11,41 @@ body {
     height: 100%;
 } */
 
+html{
+    background-color: #4C212A;
+}
+
 body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 70px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #calculator{
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border-radius: 15px;
+    background-color: #01172F;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.415), 0 6px 20px 0 rgba(0, 0, 0, 0.318);
 }
 
 .display{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    padding: 20px;
-    border: 2px red solid;
+    justify-content: center;
+    padding-top: 70px;
+    font-weight: 600;
+}
+
+.display-text{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: clamp(220px, 90%, 260px);
+    font-size: clamp(30px, 15vw, 38px);
 }
 
 .buttons{
@@ -38,9 +53,9 @@ body{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    margin: clamp(15px, 2vw, 20px) clamp(0px, 3vw, 0px);
-    gap: 5px;
-    width: clamp(290px, 50vw, 300px);
+    margin: 10px 0px 20px 0px;
+    gap: 10px;
+    width: clamp(280px, 90vw, 330px);
 }
 
 .calc-button{
@@ -48,6 +63,8 @@ body{
     width: 60px;
     height: 60px;
     border: none;
+    background-color: #00635D;
+    color: white;
 }
 
 .operations{
@@ -55,8 +72,9 @@ body{
     flex-direction: column;
     gap: 5px;
 }
+
 .calc-button{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -67,4 +85,12 @@ body{
 .zero{
     width: 126px;
     border-radius: 30px;
+}
+
+.operation{
+    background-color: #446DF6;
+}
+
+.top{
+    background-color: #08A4BD;
 }
