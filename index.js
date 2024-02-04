@@ -30,7 +30,7 @@ const operations= {
 const calculator = document.querySelector("#calculator");
 
 // get display
-const displayScreen = document.querySelector(".display");
+const displayScreen = document.querySelector(".display-text");
 
 const clearButton = document.querySelector(".clear");
 
@@ -71,7 +71,7 @@ calculator.addEventListener("click", (event) => {
         if(clearButton.textContent === "AC"){
             clearButton.textContent = "C";
         }
-        if (currentNumber.length < 10){
+        if (currentNumber.length < 9){
             if(currentNumber === "" && event.target.textContent === "0"){
                 currentNumber = "";
             }else{
