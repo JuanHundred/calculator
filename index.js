@@ -48,7 +48,7 @@ function clear() {
 
 // remove the clicked class from the button that has it in it's class list
 function removeClickedOperation(){
-    const clickedOperation = document.querySelector("button.clicked");
+    const clickedOperation = document.querySelector(".clicked");
     if (clickedOperation){
         clickedOperation.classList.remove("clicked");
     }
@@ -105,6 +105,8 @@ calculator.addEventListener("click", (event) => {
             event.target.classList.add("clicked");
         }
         if (result.length === 0 && currentNumber !== ""){
+            currentNumber = "";
+        }else if(result.length === 0){
             result.push(Number(currentNumber));
             lastOperation = event.target.classList[0];
             currentNumber = "";
