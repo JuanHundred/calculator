@@ -58,24 +58,27 @@ body{
     width: clamp(280px, 90vw, 330px);
 }
 
-.calc-button{
+button{
     border-radius: 50%;
     width: 60px;
     height: 60px;
+    font-size: 20px;
+    font-weight: 700;
     border: none;
     background-color: #00635D;
     color: white;
+    transition: background-color .8s;
+}
+
+button:hover{
+    background-color: rgb(227, 227, 227);
+    color: #01172F;
 }
 
 .operations{
     display: flex;
     flex-direction: column;
     gap: 5px;
-}
-
-.calc-button{
-    font-size: 20px;
-    font-weight: 700;
 }
 
 .decimal{
@@ -93,4 +96,9 @@ body{
 
 .top{
     background-color: #08A4BD;
+}
+
+.clicked{
+    background-color: rgb(255, 255, 255);
+    color: #01172F;
 }
