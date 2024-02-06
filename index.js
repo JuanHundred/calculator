@@ -5,7 +5,7 @@ let currentNumber = "";
 let result = []
 
 // operations object, will perform the calculation based on the lastOperation value
-const operations= {
+const operations = {
     division: function(a, b){
         if (Number(b) === 0){
             return "ERROR";
@@ -27,21 +27,31 @@ const operations= {
 }
 
 // get the calculator element, will serve as the parent node for the event bubbling
-const calculator = document.querySelector("#calculator");
+const calculator = document.querySelector(".buttons");
 
-// get display
+// get display to show numbers
 const displayScreen = document.querySelector(".display-text");
 
+// get clear button to make changes when clicked on
 const clearButton = document.querySelector(".clear");
 
 // save the last operation clicked on to display the result of the calculation when the new operation is clicked
 let lastOperation = "";
 
+// clear everything when user hits the clear button
 function clear() {
     currentNumber = "";
     lastOperation = "";
     result.pop();
     displayScreen.textContent = 0;
+}
+
+// remove the clicked class from the button that has it in it's class list
+function removeClickedOperation(){
+    const clickedOperation = document.querySelector("button.clicked");
+    if (clickedOperation){
+        clickedOperation.classList.remove("clicked");
+    }
 }
 
 // converts the current number displayed on screen to negative or positive
@@ -63,14 +73,19 @@ function negativePositive(){
         displayScreen.textContent = currentNumber;
     }
 }
+// the only buttons that can/will have the clicked class
+const validClasses = ["addition", "subtraction", "division", "multiplication"];
 
 // utilize event bubbling to reduce redundancy 
 calculator.addEventListener("click", (event) => {
+    
     // if the element being clicked are one of the numbers, display it
     if (event.target.classList.contains("number")){
+        removeClickedOperation();
         if(clearButton.textContent === "AC"){
             clearButton.textContent = "C";
         }
+        // limit to only displaying up to 9 digits
         if (currentNumber.length < 9){
             if(currentNumber === "" && event.target.textContent === "0"){
                 currentNumber = "";
@@ -80,10 +95,16 @@ calculator.addEventListener("click", (event) => {
             }
         }
     }
+
     // if the element being clicked is an operation, perform the calculation if a number has been clicked before
     // if a number hasn't been clicked before then that is the current result until a calculation is done to get the new result
     if (event.target.classList.contains("operation")){
-        if (result.length === 0){
+        removeClickedOperation();
+        // if button clicked are the validClasses allowed to have the clicked class
+        if (validClasses.some((classes) => event.target.classList.contains(classes))){
+            event.target.classList.add("clicked");
+        }
+        if (result.length === 0 && currentNumber !== ""){
             result.push(Number(currentNumber));
             lastOperation = event.target.classList[0];
             currentNumber = "";
@@ -107,9 +128,12 @@ calculator.addEventListener("click", (event) => {
     }
 
     // when user hits clear button
+    // will change from C back to AC if the user clicks "=" button or if the lastOperation was assigned
+    // if it's the button's text is already AC just clear everything
     if (event.target.classList.contains("clear")){ 
         if (event.target.textContent === "C"){
             if (lastOperation === "equal" || lastOperation.length == 0){
+                removeClickedOperation();
                 clear();
                 clearButton.textContent = "AC";
             }else if(lastOperation.length != 0){
@@ -118,6 +142,7 @@ calculator.addEventListener("click", (event) => {
                 clearButton.textContent = "AC";
             }
         }else if (event.target.textContent === "AC"){
+            removeClickedOperation();
             clear();
         }
     }
@@ -141,6 +166,7 @@ calculator.addEventListener("click", (event) => {
 
     // will add a decimal when the decimal button is clicked
     if(event.target.classList.contains("decimal")){
+        removeClickedOperation();
         if (!currentNumber.includes(".")){
             if (currentNumber === "" || currentNumber === "-"){
                 currentNumber = currentNumber.concat("0", ".");
@@ -150,6 +176,4 @@ calculator.addEventListener("click", (event) => {
             displayScreen.textContent = currentNumber;
         }
     };
-
-
 });
