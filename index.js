@@ -104,7 +104,7 @@ calculator.addEventListener("click", (event) => {
         if (validClasses.some((classes) => event.target.classList.contains(classes))){
             event.target.classList.add("clicked");
         }
-        if (result.length === 0 && currentNumber !== ""){
+        if (result.length === 0 && currentNumber === ""){
             currentNumber = "";
         }else if(result.length === 0){
             result.push(Number(currentNumber));
