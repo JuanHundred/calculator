@@ -12,7 +12,7 @@ body {
 } */
 
 html{
-    background-color: #4C212A;
+    background-color: #90C3C8;
 }
 
 body {
@@ -27,7 +27,7 @@ body {
 #calculator{
     display: flex;
     flex-direction: column;
-    border-radius: 15px;
+    border-radius: 1rem;
     background-color: #01172F;
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.415), 0 6px 20px 0 rgba(0, 0, 0, 0.318);
@@ -38,7 +38,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 70px;
+    padding-top: 5em;
     font-weight: 600;
 }
 
@@ -47,7 +47,7 @@ body {
     flex-direction: row;
     justify-content: end;
     width: clamp(220px, 90%, 260px);
-    font-size: clamp(30px, 15vw, 38px);
+    font-size: clamp(2rem, 15vw, 2.25rem);
 }
 
 .buttons{
@@ -62,9 +62,9 @@ body {
 
 button{
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
+    width: 3.75rem;
+    height: 3.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
     border: none;
     background-color: #00635D;
@@ -84,7 +84,7 @@ button:hover{
 }
 
 .decimal{
-    font-size: 25px;
+    font-size: 1.5rem;
 }
 
 .zero{
@@ -110,5 +110,5 @@ button:hover{
     bottom: 0;
     color: white;
     padding: 30px 0px;
-    font-size: 20px;
+    font-size: 1.25rem;
 }
